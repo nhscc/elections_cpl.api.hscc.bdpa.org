@@ -13,7 +13,7 @@ import type { TokenAttributes } from 'multiverse/next-auth';
 export function getSchemaConfig(): DbSchema {
   return getCommonSchemaConfig({
     databases: {
-      'hscc-api-elections_irv': {
+      'hscc-api-elections_cpl': {
         collections: [
           {
             name: 'elections',
@@ -37,7 +37,7 @@ export function getSchemaConfig(): DbSchema {
       }
     },
     aliases: {
-      app: 'hscc-api-elections_irv'
+      app: 'hscc-api-elections_cpl'
     }
   });
 }

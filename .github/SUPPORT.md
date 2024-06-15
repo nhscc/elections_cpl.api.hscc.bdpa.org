@@ -46,16 +46,16 @@ you for contribution 🎉, your efforts are greatly appreciated! 🙌🏿
 - Issues that go for an extended period without activity are subject to closure.
 
 [badge-issue-percentage]:
-  https://isitmaintained.com/badge/open/nhscc/elections_irv.api.hscc.bdpa.org.svg
+  https://isitmaintained.com/badge/open/nhscc/elections_cpl.api.hscc.bdpa.org.svg
   'Open issues as a percentage of all issues'
 [badge-issue-resolution]:
-  https://isitmaintained.com/badge/resolution/nhscc/elections_irv.api.hscc.bdpa.org.svg
+  https://isitmaintained.com/badge/resolution/nhscc/elections_cpl.api.hscc.bdpa.org.svg
   'Average time to resolve an issue'
 [choose-new-issue]:
-  https://github.com/nhscc/elections_irv.api.hscc.bdpa.org/issues/new/choose
+  https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org/issues/new/choose
 [github-blog]:
   https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments
 [link-issue-resolution]:
-  https://isitmaintained.com/project/nhscc/elections_irv.api.hscc.bdpa.org
+  https://isitmaintained.com/project/nhscc/elections_cpl.api.hscc.bdpa.org
 [open-issues]:
-  https://github.com/nhscc/elections_irv.api.hscc.bdpa.org/issues?q=
+  https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org/issues?q=

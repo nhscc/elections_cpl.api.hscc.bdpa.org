@@ -7,11 +7,11 @@ security-related incident, or otherwise sensitive subject to us [via email][5].
 
 Thank you for your contribution!
 
-[1]: https://snyk.io/test/github/Xunnamius/elections_irv.api.hscc.bdpa.org
+[1]: https://snyk.io/test/github/Xunnamius/elections_cpl.api.hscc.bdpa.org
 [2]:
-  https://snyk.io/test/github/Xunnamius/elections_irv.api.hscc.bdpa.org/badge.svg
-[3]: https://github.com/Xunnamius/elections_irv.api.hscc.bdpa.org/issues?q=
+  https://snyk.io/test/github/Xunnamius/elections_cpl.api.hscc.bdpa.org/badge.svg
+[3]: https://github.com/Xunnamius/elections_cpl.api.hscc.bdpa.org/issues?q=
 [4]:
-  https://github.com/Xunnamius/elections_irv.api.hscc.bdpa.org/issues/new/choose
+  https://github.com/Xunnamius/elections_cpl.api.hscc.bdpa.org/issues/new/choose
 [5]:
   mailto:security@ergodark.com?subject=ALERT%3A%20SECURITY%20INCIDENT%3A%20%28five%20word%20summary%29

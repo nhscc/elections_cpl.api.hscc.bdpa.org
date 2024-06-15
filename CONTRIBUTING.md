@@ -77,23 +77,23 @@ At this point, you're ready to create your PR and ✨ contribute ✨!
 
 [atomic-commits]: https://www.codewithjason.com/atomic-commits-testing
 [choose-new-issue]:
-  https://github.com/nhscc/elections_irv.api.hscc.bdpa.org/issues/new/choose
+  https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org/issues/new/choose
 [code-of-conduct]: /.github/CODE_OF_CONDUCT.md
 [codecov]: https://about.codecov.io
 [conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0#summary
 [cosmetic-commits]:
   https://github.com/rails/rails/pull/13771#issuecomment-32746700
-[fork]: https://github.com/nhscc/elections_irv.api.hscc.bdpa.org/fork
+[fork]: https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org/fork
 [github-actions]: https://github.com/features/actions
 [how-to-clone]:
   https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 [how-to-contribute]: https://www.dataschool.io/how-to-contribute-on-github
 [husky-cl]:
-  https://github.com/nhscc/elections_irv.api.hscc.bdpa.org/tree/main/.husky
+  https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org/tree/main/.husky
 [npm-ci]: https://docs.npmjs.com/cli/v6/commands/npm-ci
 [open-issues]:
-  https://github.com/nhscc/elections_irv.api.hscc.bdpa.org/issues?q=
+  https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org/issues?q=
 [pkg-debug]: https://www.npmjs.com/package/debug
 [pkg-debug-wildcards]: https://www.npmjs.com/package/debug#wildcards
-[pr-compare]: https://github.com/nhscc/elections_irv.api.hscc.bdpa.org/compare
-[projector]: https://github.com/nhscc/elections_irv.api.hscc.bdpa.org#readme
+[pr-compare]: https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org/compare
+[projector]: https://github.com/nhscc/elections_cpl.api.hscc.bdpa.org#readme

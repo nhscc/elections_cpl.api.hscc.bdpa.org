@@ -25,7 +25,7 @@ export default function Index({
     <React.Fragment>
       <p>
         Serverless node runtime: <strong>{nodeVersion}</strong> <br />
-        elections_irv runtime: <strong>{`v${pkgVersion}`}</strong>
+        elections_cpl runtime: <strong>{`v${pkgVersion}`}</strong>
         <br />
       </p>
       <p>

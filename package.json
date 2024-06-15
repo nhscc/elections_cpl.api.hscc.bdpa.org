@@ -23,7 +23,7 @@
     "build:stats": "NODE_ENV=production webpack --json > bundle-stats.ignore.json",
     "clean": "git ls-files --exclude-standard --ignored --others --directory | grep -vE '^((\\.(env|vscode|husky))|next-env\\.d\\.ts|node_modules)($|\\/)' | xargs -p rm -rf",
     "deploy": "npm run deploy:production && npm run deploy:preview && npm --no-git-tag-version version patch",
-    "deploy:preview": "url=$(vercel deploy) && vercel alias set \"$url\" elections-irv.preview-api.hscc.bdpa.org",
+    "deploy:preview": "url=$(vercel deploy) && vercel alias set \"$url\" elections-cpl.preview-api.hscc.bdpa.org",
     "deploy:production": "vercel deploy --prod",
     "dev": "next -p `npx -q acquire-port`",
     "format": "MD_FILES=$(node -e 'console.log(require(`glob-gitignore`).sync(`**/*.md`, { ignore: require(`fs`).readFileSync(`.prettierignore`, `utf8`).split(`\n`).filter(Boolean), dot: true }).join(`\n`))') && (echo $MD_FILES | xargs remark --no-config --no-stdout --quiet --frail --use gfm --use lint-no-undefined-references || (echo -n '\u001b' && echo '[37;41;1m FAIL \u001b[0m cannot continue with undefined references present' && false)) && sort-package-json './package.json' './packages/*/package.json' && echo $MD_FILES | NODE_ENV=format xargs remark --output --frail && echo $MD_FILES | xargs doctoc --no-title --maxlevel 3 --update-only && prettier --write .",
