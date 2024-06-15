@@ -3,7 +3,9 @@ import { getEnv } from 'universe/backend/env';
 import { ErrorMessage, ValidationError } from 'universe/error';
 
 import {
+  algorithms,
   getElectionsDb,
+  type Algorithm,
   type InternalElection,
   type NewElection,
   type NewOrPatchBallot,
@@ -97,6 +99,15 @@ function validateGenericElectionData(
     throw new ValidationError(ErrorMessage.EmptyJSONBody());
   }
 
+  if (
+    (!isPatchData || (isPatchData && data.type !== undefined)) &&
+    (typeof data.type !== 'string' || !algorithms.includes(data.type as Algorithm))
+  ) {
+    throw new ValidationError(
+      ErrorMessage.BadAlgorithm(String(data.type), algorithms)
+    );
+  }
+
   const {
     MIN_ELECTION_TITLE_LENGTH,
     MAX_ELECTION_TITLE_LENGTH,
@@ -185,6 +196,7 @@ function validateGenericElectionData(
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {
+    type: _0,
     title: _1,
     description: _2,
     options: _3,

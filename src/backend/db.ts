@@ -71,10 +71,27 @@ export type WithProvenance<T> = {
 } & T;
 
 /**
+ * An enum representing the types of election victory calculation
+ * algorithms.
+ */
+export enum Algorithm {
+  IRV = 'irv',
+  CPL = 'cpl',
+  STAR = 'star',
+  FPTP = 'fptp'
+}
+
+/**
+ * The types of election victory calculation algorithms.
+ */
+export const algorithms = Object.values(Algorithm);
+
+/**
  * The shape of an internal application election.
  */
 export type InternalElection = WithProvenance<
   WithId<{
+    type: Algorithm;
     title: string;
     description: string;
     options: string[];
@@ -90,6 +107,7 @@ export type InternalElection = WithProvenance<
  */
 export type PublicElection = Pick<
   InternalElection,
+  | 'type'
   | 'title'
   | 'description'
   | 'options'
@@ -107,7 +125,7 @@ export type PublicElection = Pick<
  */
 export type NewElection = Pick<
   InternalElection,
-  'title' | 'description' | 'options' | 'opensAt' | 'closesAt'
+  'type' | 'title' | 'description' | 'options' | 'opensAt' | 'closesAt'
 >;
 
 /**
@@ -154,6 +172,7 @@ export function toPublicElection(
 ): PublicElection {
   return {
     election_id: internalElection._id.toString(),
+    type: internalElection.type,
     title: internalElection.title,
     description: internalElection.description,
     options: internalElection.options,
@@ -197,6 +216,7 @@ export function toPublicInfo({
 export const incompletePublicElectionProjection = {
   _id: false,
   election_id: { $toString: '$_id' },
+  type: true,
   title: true,
   description: true,
   options: true,

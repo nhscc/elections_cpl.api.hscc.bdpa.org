@@ -1,4 +1,5 @@
 import { ErrorMessage as NamedErrorMessage } from 'named-app-errors';
+
 import type { LiteralUnion } from 'type-fest';
 
 export * from 'named-app-errors';
@@ -114,5 +115,8 @@ export const ErrorMessage = {
     return `resource limit reached${resource ? `: ${resource}` : ''}${
       max !== undefined ? ` (exceeded maximum of ${max})` : ''
     }`;
+  },
+  BadAlgorithm: (badAlgorithm: string, algorithms: string[]) => {
+    return `unknown election algorithm type "${badAlgorithm}", expected one of: ${algorithms.join(', ')}`;
   }
 };

@@ -207,11 +207,12 @@ export async function createElection({
 
   const createdAt = Date.now();
   const electionsDb = await getElectionsDb();
-  const { title, description, options, opensAt, closesAt } = data;
+  const { type, title, description, options, opensAt, closesAt } = data;
 
   const newElection: InternalElection = {
     _id: new ObjectId(),
     __provenance: provenance,
+    type,
     title,
     description,
     options,

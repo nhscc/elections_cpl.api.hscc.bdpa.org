@@ -9,7 +9,11 @@ import {
 
 import type { DummyData } from 'multiverse/mongo-test';
 
-import type { InternalBallot, InternalElection } from 'universe/backend/db';
+import {
+  Algorithm,
+  type InternalBallot,
+  type InternalElection
+} from 'universe/backend/db';
 
 /**
  * Returns data used to hydrate databases and their collections.
@@ -55,6 +59,7 @@ const elections: InternalElection[] = [
     _id: generateMockSensitiveObjectId(),
     __provenance: dummyRootData.auth[0].attributes.owner,
     // ? Election #1 (empty) demonstrates minimum title length (4 characters)
+    type: Algorithm.IRV,
     title: '#1 E',
     description: '',
     options: [],
@@ -66,6 +71,7 @@ const elections: InternalElection[] = [
   {
     _id: generateMockSensitiveObjectId(),
     __provenance: dummyRootData.auth[0].attributes.owner,
+    type: Algorithm.CPL,
     title: 'election #2 (deleted)',
     description: 'deleted',
     options: ['deleted-1', 'deleted-2'],
@@ -77,6 +83,7 @@ const elections: InternalElection[] = [
   {
     _id: generateMockSensitiveObjectId(),
     __provenance: dummyRootData.auth[0].attributes.owner,
+    type: Algorithm.FPTP,
     title: 'election #3 (average)',
     description: 'election 3 description',
     options: ['1', '2', '3'],
@@ -88,6 +95,7 @@ const elections: InternalElection[] = [
   {
     _id: generateMockSensitiveObjectId(),
     __provenance: dummyRootData.auth[0].attributes.owner,
+    type: Algorithm.STAR,
     title: 'election #4 (full) ' + '#'.repeat(MAX_ELECTION_TITLE_LENGTH - 19),
     description: 'x'.repeat(MAX_ELECTION_DESC_LENGTH),
     options: Array.from({ length: MAX_ELECTION_OPTIONS_ITEMS }).map((_, index) =>
@@ -101,6 +109,7 @@ const elections: InternalElection[] = [
   {
     _id: generateMockSensitiveObjectId(),
     __provenance: dummyRootData.auth[0].attributes.owner,
+    type: Algorithm.IRV,
     title: 'election #5 (open but not closed)',
     description: 'election 5 description',
     options: ['a', 'b', 'c'],
@@ -112,6 +121,7 @@ const elections: InternalElection[] = [
   {
     _id: generateMockSensitiveObjectId(),
     __provenance: dummyRootData.auth[0].attributes.owner,
+    type: Algorithm.CPL,
     title: 'election #6 (closed)',
     description: 'election 6 description',
     options: ['z-0', 'y-1', 'x-2', 'w-3', 'v-4', 'u-5'],

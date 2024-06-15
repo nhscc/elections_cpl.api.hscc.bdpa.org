@@ -11,7 +11,11 @@ import { debugNamespace as namespace } from 'universe/constants';
 import { debugFactory } from 'multiverse/debug-extended';
 import { getDb } from 'multiverse/mongo-schema';
 
-import type { InternalBallot, InternalElection } from 'universe/backend/db';
+import {
+  Algorithm,
+  type InternalBallot,
+  type InternalElection
+} from 'universe/backend/db';
 import { getRandomFakeElectionData } from './question-generator';
 
 const debugNamespace = `${namespace}:initialize-data`;
@@ -135,6 +139,7 @@ const invoked = async () => {
             return {
               __provenance: 'auto-generated',
               _id: new ObjectId(),
+              type: Algorithm.IRV,
               ...getRandomFakeElectionData(),
               createdAt,
               opensAt,

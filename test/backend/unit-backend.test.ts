@@ -8,6 +8,8 @@ import { getEnv } from 'universe/backend/env';
 import { ErrorMessage } from 'universe/error';
 
 import {
+  Algorithm,
+  algorithms,
   getBallotsDb,
   getElectionsDb,
   toPublicBallot,
@@ -452,6 +454,7 @@ describe('::createElection', () => {
     expect.hasAssertions();
 
     const newElection: NewElection = {
+      type: Algorithm.IRV,
       title: 'title',
       description: 'description',
       options: ['option-1', 'option-2'],
@@ -459,12 +462,13 @@ describe('::createElection', () => {
       closesAt: 1
     };
 
-    const { title, description, options, opensAt, closesAt } = newElection;
+    const { type, title, description, options, opensAt, closesAt } = newElection;
 
     await expect(
       Backend.createElection({ data: newElection, provenance })
     ).resolves.toStrictEqual<PublicElection>({
       election_id: expect.any(String),
+      type,
       title,
       description,
       options,
@@ -484,6 +488,7 @@ describe('::createElection', () => {
     expect.hasAssertions();
 
     const newElection: NewElection = {
+      type: Algorithm.STAR,
       title: 'title',
       description: '',
       options: [],
@@ -491,12 +496,13 @@ describe('::createElection', () => {
       closesAt: 1
     };
 
-    const { title, description, options, opensAt, closesAt } = newElection;
+    const { type, title, description, options, opensAt, closesAt } = newElection;
 
     await expect(
       Backend.createElection({ data: newElection, provenance })
     ).resolves.toStrictEqual<PublicElection>({
       election_id: expect.any(String),
+      type,
       title,
       description,
       options,
@@ -518,6 +524,7 @@ describe('::createElection', () => {
     await expect(
       Backend.createElection({
         data: {
+          type: Algorithm.FPTP,
           title: 'title',
           description: '',
           options: [],
@@ -538,6 +545,7 @@ describe('::createElection', () => {
       Backend.createElection({
         provenance,
         data: {
+          type: Algorithm.CPL,
           title: 'title',
           description: '',
           options: [],
@@ -553,6 +561,7 @@ describe('::createElection', () => {
       Backend.createElection({
         provenance,
         data: {
+          type: Algorithm.STAR,
           title: 'title',
           description: '',
           options: [],
@@ -572,6 +581,7 @@ describe('::createElection', () => {
       Backend.createElection({
         provenance,
         data: {
+          type: Algorithm.IRV,
           title: 'title',
           description: '',
           options: ['1', '1'],
@@ -599,44 +609,78 @@ describe('::createElection', () => {
       [undefined, ErrorMessage.InvalidJSON()],
       ['string data', ErrorMessage.InvalidJSON()],
       [{}, ErrorMessage.EmptyJSONBody()],
+      [{ email: null }, ErrorMessage.BadAlgorithm('undefined', algorithms)],
+      [{ type: null }, ErrorMessage.BadAlgorithm('null', algorithms)],
+      [{ type: 1 }, ErrorMessage.BadAlgorithm('1', algorithms)],
+      [{ type: 'xyz' }, ErrorMessage.BadAlgorithm('xyz', algorithms)],
       [
-        { email: null },
+        { type: Algorithm.IRV },
         ErrorMessage.InvalidStringLength('title', minTitle, maxTitle, 'string')
       ],
       [
-        { title: 1 },
+        {
+          type: Algorithm.CPL,
+          title: 1
+        },
         ErrorMessage.InvalidStringLength('title', minTitle, maxTitle, 'string')
       ],
       [
-        { title: 'x'.repeat(minTitle - 1) },
+        {
+          type: Algorithm.STAR,
+          title: 'x'.repeat(minTitle - 1)
+        },
         ErrorMessage.InvalidStringLength('title', minTitle, maxTitle, 'string')
       ],
       [
-        { title: 'x'.repeat(maxTitle + 1) },
+        {
+          type: Algorithm.FPTP,
+          title: 'x'.repeat(maxTitle + 1)
+        },
         ErrorMessage.InvalidStringLength('title', minTitle, maxTitle, 'string')
       ],
       [
-        { title: 'x'.repeat(maxTitle) },
+        {
+          type: Algorithm.IRV,
+          title: 'x'.repeat(maxTitle)
+        },
         ErrorMessage.InvalidStringLength('description', 0, maxDesc, 'string')
       ],
       [
-        { title: 'valid title', description: 1 },
+        {
+          type: Algorithm.IRV,
+          title: 'valid title',
+          description: 1
+        },
         ErrorMessage.InvalidStringLength('description', 0, maxDesc, 'string')
       ],
       [
-        { title: 'valid title', description: 'x'.repeat(maxDesc + 1) },
+        {
+          type: Algorithm.IRV,
+          title: 'valid title',
+          description: 'x'.repeat(maxDesc + 1)
+        },
         ErrorMessage.InvalidStringLength('description', 0, maxDesc, 'string')
       ],
       [
-        { title: 'valid title', description: 'x'.repeat(maxDesc) },
-        ErrorMessage.InvalidFieldValue('options')
-      ],
-      [
-        { title: 'valid title', description: 'x'.repeat(maxDesc), options: 1 },
+        {
+          type: Algorithm.IRV,
+          title: 'valid title',
+          description: 'x'.repeat(maxDesc)
+        },
         ErrorMessage.InvalidFieldValue('options')
       ],
       [
         {
+          type: Algorithm.IRV,
+          title: 'valid title',
+          description: 'x'.repeat(maxDesc),
+          options: 1
+        },
+        ErrorMessage.InvalidFieldValue('options')
+      ],
+      [
+        {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: '',
           options: ['']
@@ -647,6 +691,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['x'.repeat(maxOption + 1)]
@@ -657,6 +702,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option', '']
@@ -667,6 +713,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'x'.repeat(maxDesc),
           options: ('x'.repeat(maxOption) + ',')
@@ -678,6 +725,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option']
@@ -686,6 +734,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option'],
@@ -695,6 +744,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option'],
@@ -704,6 +754,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option'],
@@ -713,6 +764,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option'],
@@ -723,6 +775,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option'],
@@ -733,6 +786,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option'],
@@ -743,6 +797,7 @@ describe('::createElection', () => {
       ],
       [
         {
+          type: Algorithm.IRV,
           title: 'valid title',
           description: 'valid description',
           options: ['valid option'],
@@ -1229,6 +1284,9 @@ describe('::updateElection', () => {
       ['string data', ErrorMessage.InvalidJSON()],
       [{}, ErrorMessage.EmptyJSONBody()],
       [{ email: null }, ErrorMessage.UnknownField('email')],
+      [{ type: null }, ErrorMessage.BadAlgorithm('null', algorithms)],
+      [{ type: 1 }, ErrorMessage.BadAlgorithm('1', algorithms)],
+      [{ type: 'xyz' }, ErrorMessage.BadAlgorithm('xyz', algorithms)],
       [
         { title: 1 },
         ErrorMessage.InvalidStringLength('title', minTitle, maxTitle, 'string')
